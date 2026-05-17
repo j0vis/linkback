@@ -4,7 +4,7 @@ Tags: links, partner, directory, seo, resource
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 8.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,14 @@ Use the **LinkBack Widget** in Appearance > Widgets, or the `[linkback]` shortco
 The plugin detects nofollow attributes and checks if the partner page is blocked by robots.txt.
 
 == Changelog ==
+
+= 1.1.2 =
+* Added support for custom Signup Page URL in settings.
+* Implemented automatic default signup page generation on plugin activation and settings save.
+* Enhanced get_signup_url to dynamically resolve and fall back securely.
+
+= 1.1.1 =
+* Internal bug fixes and stability improvements.
 
 = 1.1.0 =
 * Added featured listing badges and priority sorting

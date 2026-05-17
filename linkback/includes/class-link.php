@@ -312,6 +312,11 @@ class LinkBack_Link {
 	 * Dynamically locate the page containing the [linkback_signup] shortcode
 	 */
 	public static function get_signup_url() {
+		$custom_url = get_option( 'linkback_signup_url', '' );
+		if ( ! empty( $custom_url ) ) {
+			return esc_url( $custom_url );
+		}
+
 		global $wpdb;
 		$post_id = $wpdb->get_var( $wpdb->prepare(
 			"SELECT ID FROM $wpdb->posts WHERE post_content LIKE %s AND post_status = 'publish' LIMIT 1",
@@ -320,7 +325,40 @@ class LinkBack_Link {
 		if ( $post_id ) {
 			return get_permalink( $post_id );
 		}
-		return '';
+
+		// Fallback to home url with default slug
+		return home_url( '/submit-your-site/' );
+	}
+
+	/**
+	 * Create default signup page if none exists
+	 *
+	 * @return int|false Post ID on success, false on failure or if page already exists.
+	 */
+	public static function create_default_signup_page() {
+		global $wpdb;
+		// Check if any published page/post already has the [linkback_signup] shortcode
+		$post_id = $wpdb->get_var( $wpdb->prepare(
+			"SELECT ID FROM $wpdb->posts WHERE post_content LIKE %s AND post_status = 'publish' LIMIT 1",
+			'%[linkback_signup]%'
+		) );
+
+		if ( ! $post_id ) {
+			// Check if a page with the slug "submit-your-site" already exists to avoid duplicate slugs
+			$existing_page = get_page_by_path( 'submit-your-site' );
+			if ( ! $existing_page ) {
+				$post_id = wp_insert_post( array(
+					'post_title'   => __( 'Submit Your Site', 'linkback' ),
+					'post_content' => '[linkback_signup]',
+					'post_status'  => 'publish',
+					'post_type'    => 'page',
+				) );
+				return $post_id;
+			} else {
+				return $existing_page->ID;
+			}
+		}
+		return $post_id;
 	}
 
 	/**

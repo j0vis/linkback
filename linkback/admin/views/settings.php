@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $default_title                = get_option( 'linkback_default_title', __( 'Partner Links', 'linkback' ) );
 $enable_signup_link           = get_option( 'linkback_enable_signup_link', 1 );
+$signup_url                   = get_option( 'linkback_signup_url', '' );
 $check_frequency              = get_option( 'linkback_check_frequency', 'daily' );
 $grace_period_days            = get_option( 'linkback_grace_period_days', 7 );
 $default_reciprocal           = get_option( 'linkback_default_reciprocal', 1 );
@@ -60,6 +61,13 @@ $payment_amount_default       = get_option( 'linkback_payment_amount_default', 0
 						<input type="checkbox" name="enable_signup_link" id="enable_signup_link" value="1" <?php checked( $enable_signup_link, 1 ); ?>>
 						<?php esc_html_e( 'Display a "Submit Your Site" link/button below the partner links directory.', 'linkback' ); ?>
 					</label>
+				</td>
+			</tr>
+			<tr>
+				<th><label for="signup_url"><?php esc_html_e( 'Signup Page URL', 'linkback' ); ?></label></th>
+				<td>
+					<input type="url" name="signup_url" id="signup_url" class="regular-text" value="<?php echo esc_url( $signup_url ); ?>">
+					<p class="description"><?php esc_html_e( 'Optional. Enter a custom URL for the signup page. If left empty, the plugin will automatically look for a page containing the [linkback_signup] shortcode.', 'linkback' ); ?></p>
 				</td>
 			</tr>
 			<tr>

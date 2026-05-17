@@ -189,6 +189,7 @@ class LinkBack_Admin_Controller {
 		$settings = array(
 			// text
 			'default_title'               => array( 'type' => 'text', 'default' => __( 'Partner Links', 'linkback' ) ),
+			'signup_url'                  => array( 'type' => 'text', 'default' => '' ),
 			'check_frequency'             => array( 'type' => 'text', 'default' => 'daily' ),
 			'verification_method'         => array( 'type' => 'text', 'default' => 'domain' ),
 			'verification_string'         => array( 'type' => 'text', 'default' => '' ),
@@ -250,6 +251,11 @@ class LinkBack_Admin_Controller {
 			}
 
 			update_option( $option_name, $value );
+		}
+
+		// Create default signup page if none exists and signup link is enabled.
+		if ( get_option( 'linkback_enable_signup_link', 1 ) ) {
+			LinkBack_Link::create_default_signup_page();
 		}
 
 		LinkBack_Cron::reschedule();
