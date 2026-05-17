@@ -97,9 +97,7 @@ $captcha_site_key = $args['captcha_site_key'] ?? '';
 				<label for="linkback-category"><?php esc_html_e( 'Category', 'linkback' ); ?></label>
 				<select id="linkback-category" name="category" class="linkback-form-control">
 					<option value=""><?php esc_html_e( '— Select —', 'linkback' ); ?></option>
-					<?php foreach ( $categories as $cat ) : ?>
-						<option value="<?php echo esc_attr( $cat ); ?>" <?php selected( isset( $_POST['category'] ) ? sanitize_text_field( wp_unslash( $_POST['category'] ) ) : '', $cat ); ?>><?php echo esc_html( $cat ); ?></option>
-					<?php endforeach; ?>
+					<?php echo LinkBack_Link::render_category_options( $categories, isset( $_POST['category'] ) ? sanitize_text_field( wp_unslash( $_POST['category'] ) ) : '' ); ?>
 				</select>
 			</div>
 			<?php endif; ?>

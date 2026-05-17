@@ -211,6 +211,7 @@ class LinkBack_Admin_Controller {
 			'email_template_restore'      => array( 'type' => 'textarea', 'default' => '' ),
 			// bool
 			'enable_signup_link'          => array( 'type' => 'bool' ),
+			'adult_mode'                  => array( 'type' => 'bool' ),
 			'default_reciprocal'          => array( 'type' => 'bool' ),
 			'notify_on_fail'              => array( 'type' => 'bool' ),
 			'notify_on_remove'            => array( 'type' => 'bool' ),

@@ -91,9 +91,7 @@ class LinkBack_Widget extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>"><?php esc_html_e( 'Category:', 'linkback' ); ?></label>
 			<select id="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'category' ) ); ?>">
 				<option value=""><?php esc_html_e( 'All Categories', 'linkback' ); ?></option>
-				<?php foreach ( $categories as $cat ) : ?>
-					<option value="<?php echo esc_attr( $cat ); ?>" <?php selected( $category, $cat ); ?>><?php echo esc_html( $cat ); ?></option>
-				<?php endforeach; ?>
+				<?php echo LinkBack_Link::render_category_options( $categories, $category ); ?>
 			</select>
 		</p>
 		<p>

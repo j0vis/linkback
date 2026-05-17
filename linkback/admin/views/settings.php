@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $default_title                = get_option( 'linkback_default_title', __( 'Partner Links', 'linkback' ) );
 $enable_signup_link           = get_option( 'linkback_enable_signup_link', 1 );
 $signup_url                   = get_option( 'linkback_signup_url', '' );
+$adult_mode                   = get_option( 'linkback_adult_mode', 0 );
 $check_frequency              = get_option( 'linkback_check_frequency', 'daily' );
 $grace_period_days            = get_option( 'linkback_grace_period_days', 7 );
 $default_reciprocal           = get_option( 'linkback_default_reciprocal', 1 );
@@ -85,6 +86,15 @@ $payment_amount_default       = get_option( 'linkback_payment_amount_default', 0
 				<td>
 					<input type="number" name="max_display" id="max_display" class="small-text" value="<?php echo esc_attr( $max_display ); ?>" min="1">
 					<p class="description"><?php esc_html_e( 'Default maximum number of links shown in widgets and shortcodes.', 'linkback' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th><?php esc_html_e( 'Adult Site Mode', 'linkback' ); ?></th>
+				<td>
+					<label>
+						<input type="checkbox" name="adult_mode" id="adult_mode" value="1" <?php checked( $adult_mode, 1 ); ?>>
+						<?php esc_html_e( 'Enable Adult Site Mode to use an extensive, curated directory structure of adult categories and subcategories.', 'linkback' ); ?>
+					</label>
 				</td>
 			</tr>
 		</table>

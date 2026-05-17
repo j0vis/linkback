@@ -4,7 +4,7 @@ Tags: links, partner, directory, seo, resource
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 8.0
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,12 @@ Use the **LinkBack Widget** in Appearance > Widgets, or the `[linkback]` shortco
 The plugin detects nofollow attributes and checks if the partner page is blocked by robots.txt.
 
 == Changelog ==
+
+= 1.1.3 =
+* Added Adult Site Mode configuration toggle to settings.
+* Implemented a comprehensive, multi-tiered taxonomy of adult categories and subcategories (supporting Couples, Solo, Milfs, Trans, Gays, Hentai, Fetish/BDSM, Softcore, and more).
+* Integrated custom hierarchical category option selectors (`<optgroup>`) dynamically in frontend signup forms and dashboard widget selectors.
+* Seamlessly flattened category fields for easy datalist administration and searching.
 
 = 1.1.2 =
 * Added support for custom Signup Page URL in settings.

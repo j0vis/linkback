@@ -47,7 +47,7 @@ if ( $link ) {
 	$data = $defaults;
 }
 
-$categories = LinkBack_Link::get_categories();
+$categories = LinkBack_Link::get_flat_categories();
 ?>
 <div class="wrap linkback-admin">
 	<h1><?php echo esc_html( $title ); ?></h1>

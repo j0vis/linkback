@@ -283,6 +283,10 @@ class LinkBack_Link {
 	 * Get all distinct categories
 	 */
 	public static function get_categories() {
+		if ( get_option( 'linkback_adult_mode', 0 ) ) {
+			return self::get_adult_categories();
+		}
+
 		global $wpdb;
 		$table = LinkBack_Database::table();
 
@@ -292,6 +296,169 @@ class LinkBack_Link {
 
 		$rows = $wpdb->get_col( "SELECT DISTINCT category FROM {$table} WHERE category != '' ORDER BY category ASC" );
 		return $rows ? $rows : array();
+	}
+
+	/**
+	 * Return the extensive list of adult categories and subcategories
+	 *
+	 * @return array
+	 */
+	public static function get_adult_categories() {
+		return array(
+			__( 'Amateur & Real', 'linkback' ) => array(
+				'Amateur',
+				'Amateur > Couples',
+				'Amateur > Solo',
+				'Amateur > Verification',
+				'Homemade',
+				'Webcam Live',
+			),
+			__( 'Blowjob & Oral', 'linkback' ) => array(
+				'Blowjob',
+				'Blowjob > Deepthroat',
+				'Blowjob > Facial',
+				'Blowjob > Swallow',
+				'Gagging',
+			),
+			__( 'MILF & Mature', 'linkback' ) => array(
+				'MILF',
+				'MILF > Cougars',
+				'MILF > Housewives',
+				'MILF > Moms',
+				'Mature',
+				'Granny',
+			),
+			__( 'Teen & Youth (18+)', 'linkback' ) => array(
+				'Teen (18+)',
+				'Teen (18+) > College',
+				'Teen (18+) > Debutantes',
+				'Teen (18+) > Goth & E-Girl',
+			),
+			__( 'Ethnicity & Region', 'linkback' ) => array(
+				'Asian',
+				'Asian > Japanese (AV)',
+				'Asian > Chinese',
+				'Asian > Korean',
+				'Asian > Indian',
+				'Ebony',
+				'Ebony > African',
+				'Latina',
+				'Latina > Brazilian',
+				'Latina > Mexican',
+				'Arab & Middle Eastern',
+				'Euro',
+				'Russian',
+			),
+			__( 'Body Types & Features', 'linkback' ) => array(
+				'Big Tits',
+				'Big Tits > Natural',
+				'Big Tits > Implants',
+				'Big Ass',
+				'Big Ass > Bubble Butt',
+				'BBW',
+				'BBW > Chubby',
+				'SSBBW',
+				'Petite',
+				'Redheads',
+				'Blondes',
+				'Brunettes',
+			),
+			__( 'POV & Virtual Reality', 'linkback' ) => array(
+				'POV',
+				'POV > VR 360',
+				'POV > Go Pro',
+				'POV > Handheld',
+			),
+			__( 'Hardcore & Penetration', 'linkback' ) => array(
+				'Anal',
+				'Double Penetration (DP)',
+				'Gangbang & Orgy',
+				'Threeway (3-Way)',
+				'Creampie',
+				'Hardcore',
+				'Rough Play',
+			),
+			__( 'Fetish & BDSM', 'linkback' ) => array(
+				'BDSM',
+				'BDSM > Bondage',
+				'BDSM > Spanking & Domination',
+				'Fetish',
+				'Fetish > Foot & Feet',
+				'Fetish > Latex & Leather',
+				'Cosplay',
+				'Roleplay',
+			),
+			__( 'LGBTQ+ & Queer', 'linkback' ) => array(
+				'Gay',
+				'Gay > Twink',
+				'Gay > Bear',
+				'Gay > Jock',
+				'Lesbian',
+				'Lesbian > Tribbing',
+				'Lesbian > Toys & Strap-on',
+				'Trans (TS/TG)',
+				'Trans > Shemale',
+				'Trans > Femboy',
+			),
+			__( 'Hentai & Animated', 'linkback' ) => array(
+				'Hentai',
+				'Hentai > 3D & CGI',
+				'Hentai > Classic 2D',
+				'Anime & Manga',
+			),
+			__( 'Softcore & Sensual', 'linkback' ) => array(
+				'Softcore',
+				'Sensual Massage',
+				'Striptease & Erotic Dance',
+				'Romantic',
+			),
+		);
+	}
+
+	/**
+	 * Flatten category hierarchy (useful for datalists or simple text matching)
+	 *
+	 * @param array|null $categories
+	 * @return array
+	 */
+	public static function get_flat_categories( $categories = null ) {
+		if ( $categories === null ) {
+			$categories = self::get_categories();
+		}
+		$flat = array();
+		foreach ( $categories as $key => $val ) {
+			if ( is_array( $val ) ) {
+				foreach ( $val as $subcat ) {
+					$flat[] = $subcat;
+				}
+			} else {
+				$flat[] = $val;
+			}
+		}
+		return $flat;
+	}
+
+	/**
+	 * Output select options for categories (supports hierarchical arrays via optgroups)
+	 *
+	 * @param array  $categories Array of categories (flat or nested).
+	 * @param string $selected   Currently selected value.
+	 * @return string HTML select option string.
+	 */
+	public static function render_category_options( $categories, $selected = '' ) {
+		$output = '';
+		foreach ( $categories as $key => $val ) {
+			if ( is_array( $val ) ) {
+				$output .= '<optgroup label="' . esc_attr( $key ) . '">';
+				foreach ( $val as $subcat ) {
+					$output .= '<option value="' . esc_attr( $subcat ) . '" ' . selected( $selected, $subcat, false ) . '>' . esc_html( $subcat ) . '</option>';
+				}
+				$output .= '</optgroup>';
+			} else {
+				$output .= '<option value="' . esc_attr( $val ) . '" ' . selected( $selected, $val, false ) . '>' . esc_html( $val ) . '</option>';
+			}
+		}
+		return $output;
 	}
 
 	/**

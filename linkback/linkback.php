@@ -3,7 +3,7 @@
  * Plugin Name: LinkBack
  * Plugin URI:  https://xxxpm.com
  * Description: A partner directory plugin for WordPress with link verification, hit ranking, anti-cheat, and payment support.
- * Version:     1.1.2
+ * Version:     1.1.3
  * Author:      Prof
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LINKBACK_VERSION', '1.1.2' );
+define( 'LINKBACK_VERSION', '1.1.3' );
 define( 'LINKBACK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LINKBACK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -59,6 +59,7 @@ function linkback_activate() {
 		'default_title'             => __( 'Partner Links', 'linkback' ),
 		'enable_signup_link'        => 1,
 		'signup_url'                => '',
+		'adult_mode'                => 0,
 		'enable_honeypot'           => 1,
 		'enable_rate_limit'         => 1,
 		'signup_rate_limit'         => 3,
