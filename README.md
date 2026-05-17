@@ -3,13 +3,18 @@
 [![WordPress Version](https://img.shields.io/badge/WordPress-6.0%2B-blue.svg?style=flat-square&logo=wordpress)](https://wordpress.org/)
 [![PHP Version](https://img.shields.io/badge/PHP-8.0%2B-purple.svg?style=flat-square&logo=php)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-orange.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.1.1-green.svg?style=flat-square)](https://github.com/j0vis/linkback)
+[![Version](https://img.shields.io/badge/Version-1.1.3-green.svg?style=flat-square)](https://github.com/j0vis/linkback)
 
 LinkBack is a feature-rich, high-performance WordPress plugin designed to help webmasters run a premium **Partner Directory & Link Exchange Program**. Featuring automated reciprocal link verification, anti-cheat detection, grace periods, hit-based ranking, customizable glassmorphism frontend layouts, and detailed traffic analytics, LinkBack handles all link trading operations automatically.
 
 ---
 
 ## ✨ Key Features
+
+### 🔞 Curated Adult Site Mode
+* **Comprehensive Category Taxonomy**: Toggle "Adult Site Mode" in settings to instantly load an extensive, curated structure of adult categories and subcategories (e.g. *Amateur & Real*, *MILF & Mature*, *Teen & Youth (18+)*, *Ethnicity & Region*, *Body Types & Features*, *Hardcore & Penetration*, *Fetish & BDSM*, *LGBTQ+ & Queer*, *Hentai & Animated*, and *Softcore & Sensual*).
+* **Hierarchical Dropdown Selects**: Form select elements automatically render with clean, semantic HTML `<optgroup>` wrappers in public widgets and frontend signup screens.
+* **Auto-Flattened Datapaths**: Automatically flattens complex taxonomies into simple string lists for seamless administration, custom filters, and full text search in dashboard listings.
 
 ### 🔍 Automated Verification & Anti-Cheat
 * **Multiple Verification Methods**: Checks partner pages for your domain name or a user-defined custom verification string.
@@ -22,6 +27,11 @@ LinkBack is a feature-rich, high-performance WordPress plugin designed to help w
 * **Grace Status**: When a partner link goes missing, the system places it in a `grace` status and logs the exact timestamp.
 * **Automatic Removal**: Disabled listings automatically after the grace period expires (defaults to 7 days).
 * **Restoration & Notifications**: Sends robust, templated email alerts to both the administrator and the partner upon grace entry, status changes, and link restoration.
+
+### 🔗 Custom Signup URL & Automated Page Bootstrapping
+* **Custom Redirection Path**: Configure a bespoke directory submission path to perfectly match your site structure.
+* **Auto-Creation Page Bootstrapper**: Upon plugin activation or saving settings, LinkBack automatically bootstraps a default submission page containing the `[linkback_signup]` shortcode, ensuring a plug-and-play layout experience with zero manual shortcode creation required.
+* **Secure Fallback Resolution**: Seamlessly falls back to dynamic directory endpoints to avoid broken front-facing link targets.
 
 ### 📊 Click Tracking & Analytics
 * **SEO-Friendly Direct URLs**: Frontend listings output clean direct links for search engine indexing.
