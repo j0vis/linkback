@@ -1,0 +1,76 @@
+/* LinkBack Admin Styles */
+.linkback-admin .linkback-status {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.linkback-admin .linkback-status-active {
+	background: #c6e1c6;
+	color: #5b841b;
+}
+
+.linkback-admin .linkback-status-inactive {
+	background: #f8dda7;
+	color: #94660c;
+}
+
+.linkback-admin .linkback-status-ok {
+	background: #c6e1c6;
+	color: #5b841b;
+}
+
+.linkback-admin .linkback-status-grace {
+	background: #f8dda7;
+	color: #94660c;
+}
+
+.linkback-admin .linkback-status-pending {
+	background: #bce3f7;
+	color: #0b5885;
+}
+
+.linkback-admin .linkback-status-missing {
+	background: #eba3a3;
+	color: #761919;
+}
+
+.linkback-admin .linkback-status-featured {
+	background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+	color: #fff;
+	margin-left: 4px;
+}
+
+.linkback-admin .linkback-status-dead {
+	background: #2d2d2d;
+	color: #ff6b6b;
+	margin-left: 4px;
+}
+
+.linkback-admin .wp-list-table th,
+.linkback-admin .wp-list-table td {
+	vertical-align: middle;
+}
+
+.linkback-admin .tablenav .button-primary {
+	float: right;
+}
+
+.linkback-ajax-verify.spinning::after {
+	content: '';
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border: 2px solid #999;
+	border-top-color: transparent;
+	border-radius: 50%;
+	animation: linkback-spin 0.6s linear infinite;
+	margin-left: 6px;
+	vertical-align: middle;
+}
+
+@keyframes linkback-spin {
+	to { transform: rotate(360deg); }
+}
