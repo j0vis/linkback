@@ -93,8 +93,8 @@ This table stores aggregated daily click volumes:
 ## 🚀 Installation & Quick Start
 
 ### Manual Installation
-1. Download this repository as a `.zip` file or clone it directly.
-2. Extract the archive and copy the `linkback` folder to your `/wp-content/plugins/` directory:
+1. **Option A (GitHub Zip)**: Download this repository as a `.zip` file. Extract it, rename the extracted folder to `linkback`, and move the folder into your `/wp-content/plugins/` directory.
+2. **Option B (Git Clone)**: Clone the repository directly into your WordPress plugins directory:
    ```bash
    git clone https://github.com/j0vis/linkback.git wp-content/plugins/linkback
    ```
