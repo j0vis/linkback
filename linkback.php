@@ -17,6 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Prevent double loading/redeclaration conflicts if multiple copies/versions of the plugin are present.
+if ( defined( 'LINKBACK_VERSION' ) ) {
+	return;
+}
+
 define( 'LINKBACK_VERSION', '1.1.3' );
 define( 'LINKBACK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LINKBACK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -41,7 +46,8 @@ require_once LINKBACK_PLUGIN_DIR . 'includes/class-rest-api.php';
  * Activation hook
  */
 register_activation_hook( __FILE__, 'linkback_activate' );
-function linkback_activate() {
+if ( ! function_exists( 'linkback_activate' ) ) {
+	function linkback_activate() {
 	LinkBack_Database::create_tables();
 	LinkBack_Cron::schedule();
 
@@ -93,15 +99,18 @@ function linkback_activate() {
 	}
 
 	flush_rewrite_rules();
+	}
 }
 
 /**
  * Deactivation hook
  */
 register_deactivation_hook( __FILE__, 'linkback_deactivate' );
-function linkback_deactivate() {
+if ( ! function_exists( 'linkback_deactivate' ) ) {
+	function linkback_deactivate() {
 	LinkBack_Cron::unschedule();
 	flush_rewrite_rules();
+	}
 }
 
 /**
@@ -110,11 +119,13 @@ function linkback_deactivate() {
  * This ensures dbDelta() runs when the plugin is updated without
  * requiring manual deactivation / reactivation.
  */
-function linkback_check_upgrade() {
+if ( ! function_exists( 'linkback_check_upgrade' ) ) {
+	function linkback_check_upgrade() {
 	$db_version = get_option( 'linkback_db_version', '1.0.0' );
 	if ( version_compare( $db_version, LINKBACK_VERSION, '<' ) ) {
 		LinkBack_Database::create_tables();
 		update_option( 'linkback_db_version', LINKBACK_VERSION );
+	}
 	}
 }
 
@@ -122,20 +133,24 @@ function linkback_check_upgrade() {
  * Init plugin
  */
 add_action( 'plugins_loaded', 'linkback_init' );
-function linkback_init() {
+if ( ! function_exists( 'linkback_init' ) ) {
+	function linkback_init() {
 	linkback_check_upgrade();
 	new LinkBack_Admin();
 	new LinkBack_Shortcode();
 	add_action( 'widgets_init', 'linkback_register_widget' );
 	add_action( 'template_redirect', 'linkback_handle_redirect' );
 	add_action( 'rest_api_init', array( 'LinkBack_REST_API', 'register_routes' ) );
+	}
 }
 
 /**
  * Register widget
  */
-function linkback_register_widget() {
+if ( ! function_exists( 'linkback_register_widget' ) ) {
+	function linkback_register_widget() {
 	register_widget( 'LinkBack_Widget' );
+	}
 }
 
 /**
@@ -145,7 +160,8 @@ function linkback_register_widget() {
  * hit tracking. The frontend links are direct (SEO-friendly), so
  * regular clicks no longer route through here.
  */
-function linkback_handle_redirect() {
+if ( ! function_exists( 'linkback_handle_redirect' ) ) {
+	function linkback_handle_redirect() {
 	if ( ! isset( $_GET['linkback_redirect'] ) ) {
 		return;
 	}
@@ -183,13 +199,15 @@ function linkback_handle_redirect() {
 	// Fallback for old cached links or direct bookmarks.
 	wp_redirect( esc_url_raw( $link->site_url ), 302 );
 	exit;
+	}
 }
 
 /**
  * Track incoming hits from referrer
  */
 add_action( 'wp', 'linkback_track_incoming' );
-function linkback_track_incoming() {
+if ( ! function_exists( 'linkback_track_incoming' ) ) {
+	function linkback_track_incoming() {
 	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
 		return;
 	}
@@ -204,6 +222,7 @@ function linkback_track_incoming() {
 	if ( $link_id ) {
 		LinkBack_Link::record_stat( $link_id, 'hits_in' );
 	}
+	}
 }
 
 /**
@@ -213,7 +232,8 @@ function linkback_track_incoming() {
  * @param array  $args     Variables to extract into the template scope.
  * @return string Rendered HTML.
  */
-function linkback_get_template( $template, $args = array() ) {
+if ( ! function_exists( 'linkback_get_template' ) ) {
+	function linkback_get_template( $template, $args = array() ) {
 	$template = sanitize_file_name( $template );
 
 	// Theme override.
@@ -235,4 +255,5 @@ function linkback_get_template( $template, $args = array() ) {
 	// This prevents accidental variable collisions and makes dependencies explicit.
 	include $template_path;
 	return ob_get_clean();
+	}
 }
